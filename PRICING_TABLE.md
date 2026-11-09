@@ -1,4 +1,4 @@
-# Atlassian Marketplace Pricing Table — Page Attestation & Rovo AI Readiness Guard for Confluence
+# Atlassian Marketplace Pricing Table — Page Attestation & AI Readiness Check for Confluence
 
 ## Pricing Model Overview
 - **Billing Engine**: Atlassian Marketplace Cloud Per-User Progressive Tiered Pricing (`app.licensing.enabled: true`)
