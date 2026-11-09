@@ -1,6 +1,6 @@
 # Security: Page Attestation & AI Readiness Check for Confluence
 
-Updated 9 November 2026
+Updated 10 November 2026
 
 How the Atlassian Marketplace app **Page Attestation & AI Readiness Check for Confluence**, made by EvidencePair LLC, handles data, what protects it, how we handle vulnerabilities, and which certifications apply. What the app stores is listed in full in its [privacy policy](./PRIVACY_POLICY.md).
 
@@ -9,11 +9,13 @@ How the Atlassian Marketplace app **Page Attestation & AI Readiness Check for Co
 - **Forge only.** The app runs on Atlassian Forge (`nodejs24.x`) on Atlassian infrastructure. Its three screens (a page byline item, a space settings page and a global page) are built with Forge UI Kit.
 - **No egress.** The manifest declares no external permissions and no remote services. The app makes requests only to your site's Confluence APIs, and it loads no analytics, error-reporting services or external assets.
 - **No storage of its own.** The app keeps its data in Confluence on your site: a space property (`rovoGuardSpacePolicy`), a page property (`rovoGuardAttestation`) and two page labels (`verified-for-ai`, `stale-exclude-ai`). It uses no Forge storage or Forge SQL, and EvidencePair has no copy.
+- **Only the page and space in front of you.** The app reads and writes only the page or space Confluence names in its context, or the space you choose on the global page. It has no built-in space, page or account IDs. When there is no page or space, it shows a message and makes no request.
+- **Writes are checked.** When Confluence refuses a write, the app shows why and does not carry on as if it had worked. If saving a page's record fails, it does not change that page's labels.
 - **Requests run as the user.** Every request the app makes calls Confluence as the person using it, so Confluence applies that person's own permissions. The app never calls Confluence as itself. It has no scheduled jobs, triggers or other background functions, so it runs only when someone opens one of its screens.
 - **Permissions it asks for.**
   - `read:page:confluence`: read the page a byline item is opened on, list up to 50 pages in a space, and read each page's `rovoGuardAttestation` property.
   - `write:page:confluence`: save a sign-off or quarantine record to its page.
-  - `read:space:confluence`: read a space's `rovoGuardSpacePolicy` property.
+  - `read:space:confluence`: read a space's ID, key and name; list the spaces the user can see, for the global page's space picker; and read a space's `rovoGuardSpacePolicy` property.
   - `write:space:confluence`: save a space's policy.
   - `read:label:confluence`, `write:label:confluence`: add one of the app's two labels to a page and remove the other. The app never lists a page's labels.
   - `read:content-details:confluence`: declared in the manifest. The app does not read content details: apart from the page and space requests above, its only requests add and remove labels.

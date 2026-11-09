@@ -1,6 +1,6 @@
 # Privacy policy: Page Attestation & AI Readiness Check for Confluence
 
-Updated 9 November 2026
+Updated 10 November 2026
 
 This policy describes the Atlassian Marketplace app **Page Attestation & AI Readiness Check for Confluence** ("the app"), made by EvidencePair LLC ("EvidencePair", "we"). EvidencePair's company privacy policy, which covers our website and email you send us, is at <https://evidencepair.com/privacy/>.
 
@@ -14,7 +14,7 @@ This policy describes the Atlassian Marketplace app **Page Attestation & AI Read
 
 **One space property, `rovoGuardSpacePolicy`, per space whose policy someone has saved:**
 
-- the space's ID, and a space key field. This version fills that field with a fixed value from the app's own configuration (`MFS`), not with your space's key;
+- the space's ID and key, read from Confluence when the policy is saved. Earlier versions of the app wrote a fixed value (`MFS`) into the key field instead of your space's key. Saving the policy again replaces it;
 - the policy: the attestation expiry window in days (30, 60 or 90 on the settings screen), and whether editing a page after sign-off makes the sign-off stale;
 - the two label names the app uses, `verified-for-ai` and `stale-exclude-ai`;
 - the Atlassian account ID of the person who last saved the policy, and when;
@@ -36,14 +36,16 @@ Each new decision replaces the page's previous record, so the property holds onl
 
 The app does not look up names, email addresses or profiles. A page title can contain personal data, and the app copies it as it is.
 
-The global page also builds a CSV export each time it loads. For each page it scanned, the CSV lists the page's ID, title, current and signed versions, status, label, whether the checksum matched, the signer's account ID, the time and the checksum. Its last line holds the account ID of the person viewing it, the time, and a checksum of the rows. The app shows the CSV on screen to copy and does not save it anywhere.
+The global page also builds a CSV export each time it scans a space. For each page it scanned, the CSV lists the page's ID, title, current and signed versions, status, label, whether the checksum matched, the signer's account ID, the time and the checksum. Its last line holds the account ID of the person viewing it, the time, and a checksum of the rows. The app shows the CSV on screen to copy and does not save it anywhere.
 
 ## What the app reads from Confluence
 
-- On a page's byline: the page's ID, title, version number and space ID; its `rovoGuardAttestation` property; and the `rovoGuardSpacePolicy` property of its space.
-- On a space's settings screen: that space's `rovoGuardSpacePolicy` property.
-- On the global page: the first 50 pages Confluence returns for one space, using each page's ID, title and version number, and each of those pages' `rovoGuardAttestation` property, plus that space's policy. The global page scans the space Confluence names in its context. When Confluence names none, it scans a fixed space ID from the app's own configuration (262148).
-- When someone signs off or quarantines a page, the app reads the policy of that same fixed space ID, not the policy of the page's own space. If your site has no space with that ID, or that space has no saved policy, the app uses its default policy.
+- On a page's byline: the page's ID, title, version number and space ID; its `rovoGuardAttestation` property; and the `rovoGuardSpacePolicy` property of its space. The page is the one Confluence names in the byline's context.
+- On a space's settings screen: that space's ID, key and name, and its `rovoGuardSpacePolicy` property. The space is the one Confluence names in the screen's context.
+- On the global page: first, the ID, key and name of the spaces you can see (up to 500), so you can choose one. It reads nothing else until you choose. Then, for the space you chose: its ID, key and name; its policy; the first 50 pages Confluence returns, using each page's ID, title and version number; and each of those pages' `rovoGuardAttestation` property.
+- When someone signs off or quarantines a page, the app reads the policy of that page's own space. When that space has no saved policy, the app uses its default policy (90 days, version-drift check on).
+
+The app has no built-in space, page or account IDs. When Confluence names no page or space and you have chosen none, the app shows a message and reads and writes nothing.
 
 It does not ask Confluence for page content, comments, attachments or a page's existing labels.
 

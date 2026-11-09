@@ -29,7 +29,7 @@ When enterprise teams enable **Atlassian Rovo AI** across Confluence Cloud, AI a
 2. **Space Attestation Policy Engine (`confluence:spaceSettings`)**:
    - Configure space-wide attestation expiry windows (`30`, `60`, or `90` days) and automatic version-drift invalidation (`currentPageVersion > attestedPageVersion`), stored with the Rovo AI inclusion/exclusion labels in Space Property `rovoGuardSpacePolicy` (`<32 KB`).
 3. **Global AI Readiness Radar, Bulk Quarantine & Signed CSV Export (`confluence:globalPage`)**:
-   - Scan up to 50 pages in a space, quarantine drifted or expired runbooks in 1 click (`stale-exclude-ai`) with SHA-256 audit logging, and export a signed RFC-4180 CSV compliance report, shown on the page to copy.
+   - Choose any space you can see and scan up to 50 of its pages, quarantine drifted or expired runbooks in 1 click (`stale-exclude-ai`) with SHA-256 audit logging, and export a signed RFC-4180 CSV compliance report, shown on the page to copy.
 
 ---
 
@@ -42,4 +42,4 @@ Empower page owners to sign off SOPs as `VERIFIED_FOR_AI` or quarantine legacy p
 Configure 30, 60, or 90-day attestation expiry windows and automatic version-drift invalidation in Space Settings (`rovoGuardSpacePolicy`). Whenever an attested page is edited (`currentPageVersion > attestedPageVersion`), it is automatically flagged for re-attestation so unreviewed edits never slip through.
 
 ### Highlight 3: Global AI Readiness Radar, 1-Click Bulk Quarantine & CSV Export
-Audit up to 50 pages of a Confluence space from a single Onest-styled radar dashboard. Execute 1-Click Bulk Quarantine (`stale-exclude-ai`) on drifted or expired runbooks with SHA-256 audit logging, and export a signed RFC-4180 compliance CSV report for SOC 2 and ISO 42001 AI governance audits.
+Choose any Confluence space you can see and audit up to 50 of its pages from one radar dashboard. Execute 1-Click Bulk Quarantine (`stale-exclude-ai`) on drifted or expired runbooks with SHA-256 audit logging, and export a signed RFC-4180 compliance CSV report for SOC 2 and ISO 42001 AI governance audits.
